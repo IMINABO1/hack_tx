@@ -1,0 +1,24 @@
+/* src/components/CourseCard.css */
+.card {
+    background-color: #222;
+    border: 2px solid #ffd700;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: #ffd700;
+    font-family: 'Press Start 2P', cursive;
+    transition: 0.3s;
+  }
+  
+  .progress-bar {
+    background-color: #444;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  
+  .progress {
+    height: 10px;
+    background-color: #ffd700;
+  }
+  
