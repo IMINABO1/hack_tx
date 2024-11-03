@@ -9,6 +9,7 @@ body {
   font-family: 'Press Start 2P', sans-serif;
   display: flex;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
   margin: 0;
   background-blend-mode: soft-light;
@@ -31,6 +32,7 @@ body {
 .title {
   color: rgb(255, 2, 255);
   font-size: 2vw;
+  padding-top: 50px;
 }
 
 /* Wrapper to stack the animated lines vertically */
@@ -54,7 +56,7 @@ body {
 .catchphrase {
   font-size: 2.5vw; /* Adjust font size for the catchphrase */
   color: #00ff00; /* Green color for the catchphrase */
-  margin-bottom: 20px; /* Space below the catchphrase */
+  padding-bottom: 10px; /* Space below the catchphrase */
 }
 
 /* Button styling */
