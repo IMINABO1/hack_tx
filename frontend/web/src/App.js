@@ -24,7 +24,7 @@ const getRandomCatchphrase = () => {
 
 const App = () => {
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
-
+  console.log(isAnimationComplete);
   const developers = [
     {
       name: 'Joseph Oduyebo', 
