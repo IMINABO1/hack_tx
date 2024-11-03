@@ -228,7 +228,21 @@
           [userCoords[0] - 0.0015, userCoords[1] + 0.0015], // Northwest closer
           [userCoords[0] + 0.0015, userCoords[1] - 0.0015], // Southeast closer
           [userCoords[0] - 0.0015, userCoords[1] - 0.0015]  // Southwest closer
-        ];
+          
+            ];
+            const predefinedLocations = {
+    "2330 Guadalupe St, Austin, TX 78705": [30.28717930419, -97.735140693416],
+    "N Interstate Highway 35, Austin, TX 78702": [30.28717930419, -97.735140693416],
+    "Austin, TX 78701": [30.28717930419, -97.735140693416],
+    "3718 N Lamar Blvd, Austin, TX 78705": [30.28717930419, -97.735140693416],
+    "707 E 9th St, Austin, TX 78701": [30.28717930419, -97.735140693416],
+    "N Ih 35, Austin, TX 78752": [30.28717930419, -97.735140693416],
+    "907 W 5th St, Austin, TX 78703": [30.28717930419, -97.735140693416],
+    "1201 Barbara Jordan Blvd, Austin, TX 78723": [30.28717930419, -97.735140693416]
+};
+
+// Convert predefined locations to an array and add them to trashLocations
+Object.values(predefinedLocations).forEach(coords => trashLocations.push(coords));
 
         // Add each trashcan location with the Font Awesome trash icon
         trashcans.forEach(coords => {
