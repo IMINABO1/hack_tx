@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RecyclingMessage from './RecyclingMessage';
 import Developer from './Developer';
 import './App.css';
@@ -23,21 +23,23 @@ const getRandomCatchphrase = () => {
 };
 
 const App = () => {
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+
   const developers = [
     {
-      name: 'Joseph Oduyebo',
+      name: 'Joseph Oduyebo', 
       role: 'Fullstack Developer',
-      image: 'path/to/alice.jpg' // Replace with actual image path
+      image: "https://raw.githubusercontent.com/IMINABO1/hack_tx/refs/heads/main/frontend/web/public/joseph.png"
     },
     {
-      name: 'Iminabo Roberts',
+      name: 'Iminabo Roberts', 
       role: 'Fullstack Developer',
-      image: 'path/to/bob.jpg' // Replace with actual image path
+      image: 'https://raw.githubusercontent.com/IMINABO1/hack_tx/refs/heads/main/frontend/web/public/iminabo.avif'
     },
     {
-      name: 'Daniel Enesi',
+      name: 'Daniel Enesi', 
       role: 'Fullstack Developer',
-      image: 'path/to/charlie.jpg' // Replace with actual image path
+      image: 'https://raw.githubusercontent.com/IMINABO1/hack_tx/refs/heads/main/frontend/web/public/daniel.avif'
     }
   ];
 
@@ -45,25 +47,25 @@ const App = () => {
     <div className="App">
       {/* Display a random catchphrase */}
       <h2 className="catchphrase">{getRandomCatchphrase()}</h2>
-      
+
       {/* Start Recycling Button */}
       <a href="/street/" className="action-button">Start Recycling!</a>
 
-      {/* Hello, Recycler! Title */}
-      <h1 className="title">Hello, Recycler!</h1>
-
-      {/* Recycling Message Component */}
-      <RecyclingMessage />
-
-      {/* Developer Section */}
+      {/* Meet the Team Section */}
       <section className="developer-section">
-        <h2>Meet Our Developers</h2>
+        <h2>Meet Our Team</h2>
         <div className="developer-cards">
           {developers.map((dev, index) => (
             <Developer key={index} name={dev.name} role={dev.role} image={dev.image} />
           ))}
         </div>
       </section>
+
+      {/* Hello, Recycler! Title */}
+      <h1 className="title">Hello, Recycler!</h1>
+
+      {/* Recycling Message Component */}
+      <RecyclingMessage onComplete={() => setIsAnimationComplete(true)} />
     </div>
   );
 };

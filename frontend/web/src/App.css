@@ -49,6 +49,7 @@ body {
   color: #FFF;
   animation: glow 1s infinite alternate;
   line-height: 2.5em;
+  margin-bottom: 20px;
 }
 /* Add this to your existing CSS file */
 
