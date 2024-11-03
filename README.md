@@ -64,16 +64,9 @@ Follow these instructions to set up the project locally or deploy it.
    npm install
    ```
 
-3. **Add API Key**
 
-   - Rename the `.env.example` file to `.env`.
-   - Add your Earth911 API key in the `.env` file:
-   
-     ```plaintext
-     EARTH911_API_KEY=your_api_key_here
-     ```
 
-4. **Run the Application**
+3. **Run the Application**
 
    ```bash
    npm start
@@ -87,20 +80,6 @@ Follow these instructions to set up the project locally or deploy it.
 2. **Viewing Trash Disposal Locations**: The map will display nearby disposal points with custom icons.
 3. **Classifying Waste**: Input different types of waste to see specific disposal recommendations.
 
-## Project Structure
-
-```plaintext
-project-name/
-├── public/               # Static files (CSS, JavaScript, images)
-├── src/
-│   ├── app.js            # Main server file
-│   ├── config/           # Config files for environment and API keys
-│   ├── controllers/      # Business logic and main functions
-│   └── routes/           # API routes
-├── .env                  # Environment variables
-├── .gitignore            # Git ignore file
-└── README.md             # Project README
-```
 
 ## Challenges
 
