@@ -31,7 +31,7 @@ With this guidance, you’re empowered to make better choices for the environmen
         <div>
           <span className="glow-text" ref={messageRef}>{message}</span> {/* Attach ref to the static message */}
           {/* Button that appears after the message is fully displayed */}
-          <a href="/street/" className="action-button">Dispose Trash!</a>
+          <a href="https://shiny-engine-jxxj6prpvxg35v47-5000.app.github.dev/" className="action-button">Dispose Trash!</a>
         </div>
       )}
     </div>

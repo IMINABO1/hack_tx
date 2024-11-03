@@ -49,7 +49,7 @@ const App = () => {
       <h2 className="catchphrase">{getRandomCatchphrase()}</h2>
 
       {/* Start Recycling Button */}
-      <a href="/street/" className="action-button">Start Recycling!</a>
+      <a href="https://shiny-engine-jxxj6prpvxg35v47-5000.app.github.dev/" className="action-button">Start Recycling!</a>
 
       {/* Meet the Team Section */}
       <section className="developer-section">
