@@ -25,17 +25,17 @@ const getRandomCatchphrase = () => {
 const App = () => {
   const developers = [
     {
-      name: 'Alice Smith',
-      role: 'Frontend Developer',
+      name: 'Joseph Oduyebo',
+      role: 'Fullstack Developer',
       image: 'path/to/alice.jpg' // Replace with actual image path
     },
     {
-      name: 'Bob Johnson',
-      role: 'Backend Developer',
+      name: 'Iminabo Roberts',
+      role: 'Fullstack Developer',
       image: 'path/to/bob.jpg' // Replace with actual image path
     },
     {
-      name: 'Charlie Brown',
+      name: 'Daniel Enesi',
       role: 'Fullstack Developer',
       image: 'path/to/charlie.jpg' // Replace with actual image path
     }

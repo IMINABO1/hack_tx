@@ -1,5 +1,4 @@
 import React from 'react';
-import './Developer.css'; // Create a CSS file for styling
 
 const Developer = ({ name, role, image }) => {
   return (
