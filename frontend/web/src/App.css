@@ -1,59 +1,49 @@
+/* Import the "Press Start 2P" font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 /* General body styles */
 body {
-  background-color: #282c34; /* Dark background for an arcade feel */
+  background-color: #282c34;
+  background-image: url("https://raw.githubusercontent.com/IMINABO1/hack_tx/refs/heads/main/frontend/web/public/arcade_green.jpeg");
   color: #fff;
-  font-family: 'Press Start 2P', cursive; /* Arcade-style font */
+  font-family: 'Press Start 2P', sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
   margin: 0;
+  background-blend-mode: soft-light;
 }
 
-/* Glow effect for text */
+*{
+  text-align: center;
+}
+
+.title {
+  color: purple;
+  font-size: 3vw;
+}
+
+/* Wrapper to stack the animated lines vertically */
+.recycling-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between each animated line */
+}
+
+/* Glowing text styling */
 .glow-text {
-  font-size: 5vw; /* Responsive font size */
+  font-size: 2.5vw; /* Adjusted for readability with the new font */
   color: #fff;
-  animation: glow 1.5s infinite alternate; /* Glowing animation */
-  transition: transform 0.5s ease; /* Smooth transitions for suck-back effect */
+  animation: glow 1s infinite alternate;
 }
 
 /* Keyframes for glowing effect */
 @keyframes glow {
   0% {
-    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
+    text-shadow: 0 0 5px #00ff88, 0 0 10px #40ff00, 0 0 15px #59ff00, 0 0 20px #51ff00;
   }
   100% {
     text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
-  }
-}
-
-/* Keyframes for suck-back effect */
-@keyframes suck-back {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-}
-
-/* Animation class for suck-back */
-.sucked-back {
-  animation: suck-back 0.5s forwards; /* Adjust duration as needed */
-}
-
-/* Media queries for responsive font size */
-@media (max-width: 768px) {
-  .glow-text {
-    font-size: 36px; /* Smaller font size for tablets */
-  }
-}
-
-@media (max-width: 480px) {
-  .glow-text {
-    font-size: 24px; /* Even smaller font size for mobile devices */
   }
 }
