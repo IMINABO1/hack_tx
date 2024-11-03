@@ -45,3 +45,14 @@ coverage/
 # Yarn files
 .yarn-integrity
 
+#backend files
+*/back
+/backend/category.py
+/backend/category2.py
+/backend/main.py
+/backend/model_another.h5
+/backend/model.h5
+/backend/the_model.keras
+/backend/x.jpg
+/backend/x.png
+
