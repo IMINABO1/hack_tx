@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trash Can Locator</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Page Layout */
+      body {
+        display: flex;
+        height: 100vh;
+        margin: 0;
+        font-family: "Press Start 2P", cursive;
+        background: linear-gradient(135deg, #000000 30%, #1a1a1a);
+        color: #00ff00;
+      }
+
+      /* Retro Video Feed Button */
+      #video-feed-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px 20px;
+        background-color: #ff00ff;
+        border: 2px solid #ff00ff;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        text-transform: uppercase;
+        border-radius: 5px;
+        box-shadow: 0 0 8px #ff00ff;
+        text-decoration: none;
+      }
+
+      #video-feed-btn:hover {
+        background-color: #e600e6;
+        box-shadow: 0 0 12px #ff00ff;
+      }
+
+      /* Map Container */
+      #map-container {
+        width: 66.6%; /* 2/3 of the screen */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+
+      /* Map */
+      #map {
+        height: 90vh;
+        width: 100%;
+        border: 4px solid #ff9900;
+        border-radius: 8px;
+        box-shadow: 0 0 12px #ff9900;
+      }
+
+      /* Chatbot Container */
+      #chatbot-container {
+        width: 33.3%; /* 1/3 of the screen */
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #222;
+        border-left: 4px solid #ff9900;
+        color: #00ff00;
+      }
+
+      /* Chatbot Heading */
+      #chatbot-container h2 {
+        margin-top: 0;
+        font-size: 1.5em;
+        color: #ff9900;
+      }
+
+      /* Chatbot Area */
+      #chat {
+        flex-grow: 1;
+        width: 100%;
+        padding: 10px;
+        background: #333;
+        border: 2px solid #00ff00;
+        border-radius: 8px;
+        overflow-y: auto;
+        color: #00ff00;
+        font-family: monospace;
+      }
+
+      /* Chat Input */
+      #chat-input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        border: 2px solid #ff9900;
+        border-radius: 8px;
+        background: #222;
+        color: #00ff00;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Map Container (2/3 Screen) -->
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
+
+    <!-- Chatbot Container (1/3 Screen) -->
+    <div id="chatbot-container">
+      <a href="/video_feed" id="video-feed-btn">What type of trash</a>
+      <h2>Retro Chatbot</h2>
+      <div id="chat">
+        <p> 
+            
+          Chatbot: Hello, how can I assist you today? Try: "Where is the closest
+          trashcan to me?"
+        </p>
+      </div>
+      <input type="text" id="chat-input" placeholder="Type your message..." />
+    </div>
+
+    <!-- Include Leaflet and Font Awesome -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+    <!-- JavaScript code directly in the HTML file -->
+    <script>
+      console.log("map.js loaded");
+
+      // Initialize map centered on San Francisco
+      const map = L.map("map").setView([37.7749, -122.4194], 13);
+      console.log("Map initialized");
+
+      // Add OpenStreetMap tiles
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      // Define custom icon using Font Awesome for trashcan markers
+      const trashIcon = L.divIcon({
+        html: '<i class="fas fa-trash-alt" style="color: green; font-size: 24px;"></i>',
+        iconSize: [24, 24],
+        className: "custom-div-icon",
+      });
+
+      // Function to calculate distance between two coordinates in kilometers
+      function haversineDistance(coords1, coords2) {
+        const R = 6371; // Radius of the Earth in kilometers
+        const lat1 = coords1[0] * (Math.PI / 180);
+        const lon1 = coords1[1] * (Math.PI / 180);
+        const lat2 = coords2[0] * (Math.PI / 180);
+        const lon2 = coords2[1] * (Math.PI / 180);
+
+        const dLat = lat2 - lat1;
+        const dLon = lon2 - lon1;
+
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1) *
+            Math.cos(lat2) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c; // Distance in kilometers
+      }
+
+      // Function to locate user and set marker
+      function locateUser() {
+        console.log("Locating user...");
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const userCoords = [
+                position.coords.latitude,
+                position.coords.longitude,
+              ];
+              console.log("User located at:", userCoords);
+
+              // Add marker for user location
+              L.marker(userCoords)
+                .addTo(map)
+                .bindPopup("You are here")
+                .openPopup();
+
+              // Center the map on the user's location
+              map.setView(userCoords, 15);
+
+              // Add demo trashcan locations near user
+              addTrashcans(userCoords);
+            },
+            () => {
+              alert(
+                "Unable to retrieve your location. Please check your browser settings."
+              );
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported by your browser.");
+        }
+      }
+
+      // Function to add demo trashcan locations
+      function addTrashcans(userCoords) {
+        const trashcans = [
+          [userCoords[0] + 0.002, userCoords[1] + 0.002], // Northeast
+          [userCoords[0] - 0.002, userCoords[1] + 0.002], // Northwest
+          [userCoords[0] + 0.002, userCoords[1] - 0.002], // Southeast
+          [userCoords[0] - 0.002, userCoords[1] - 0.002], // Southwest
+          [userCoords[0] + 0.003, userCoords[1]],         // East
+          [userCoords[0] - 0.003, userCoords[1]],         // West
+          [userCoords[0], userCoords[1] + 0.003],         // North
+          [userCoords[0], userCoords[1] - 0.003],         // South
+          [userCoords[0] + 0.0015, userCoords[1] + 0.0015], // Northeast closer
+          [userCoords[0] - 0.0015, userCoords[1] + 0.0015], // Northwest closer
+          [userCoords[0] + 0.0015, userCoords[1] - 0.0015], // Southeast closer
+          [userCoords[0] - 0.0015, userCoords[1] - 0.0015]  // Southwest closer
+          
+            ];
+            const predefinedLocations = {
+    "2330 Guadalupe St, Austin, TX 78705": [30.28717930419, -97.735140693416],
+    "N Interstate Highway 35, Austin, TX 78702": [30.28717930419, -97.735140693416],
+    "Austin, TX 78701": [30.28717930419, -97.735140693416],
+    "3718 N Lamar Blvd, Austin, TX 78705": [30.28717930419, -97.735140693416],
+    "707 E 9th St, Austin, TX 78701": [30.28717930419, -97.735140693416],
+    "N Ih 35, Austin, TX 78752": [30.28717930419, -97.735140693416],
+    "907 W 5th St, Austin, TX 78703": [30.28717930419, -97.735140693416],
+    "1201 Barbara Jordan Blvd, Austin, TX 78723": [30.28717930419, -97.735140693416]
+};
+
+// Convert predefined locations to an array and add them to trashLocations
+Object.values(predefinedLocations).forEach(coords => trashLocations.push(coords));
+
+        // Add each trashcan location with the Font Awesome trash icon
+        trashcans.forEach(coords => {
+          L.marker(coords, { icon: trashIcon })
+              .addTo(map)
+              .bindPopup("Trashcan Location");
+        });
+
+        return trashcans;
+      }
+
+      // Event listener for the chat input
+      document.getElementById("chat-input").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          const userMessage = this.value.trim();
+          this.value = ""; // Clear the input field
+          const chatBox = document.getElementById("chat");
+
+          // Append user message to the chat area
+          chatBox.innerHTML += `<p>User: ${userMessage}</p>`;
+          chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+
+          // Generate a bot response
+          let botResponse = "Chatbot: Ooopss. Try asking about the trashcan locations to you.";
+          if (userMessage.toLowerCase().includes("where is the closest trashcan")) {
+            botResponse = "Chatbot: Searching for trashcans near you...";
+            setTimeout(() => {
+              botResponse = "Chatbot: The closest trashcans are at these locations:";
+              addTrashcanLocations(chatBox);
+            }, 1000); // Simulate a delay for fetching data
+          }
+
+          // Append bot response to the chat area
+          chatBox.innerHTML += `<p>${botResponse}</p>`;
+          chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+        }
+      });
+
+      // Function to add trashcan locations to the chat
+      function addTrashcanLocations(chatBox) {
+        const trashcans = [
+          { location: "2 blocks away", coords: [37.7750, -122.4200] },
+          { location: "3 blocks away", coords: [37.7760, -122.4210] },
+          { location: "1 block away", coords: [37.7740, -122.4190] },
+        ];
+        trashcans.forEach(trashcan => {
+          chatBox.innerHTML += `<p>Location: ${trashcan.location} at coordinates (${trashcan.coords[0]}, ${trashcan.coords[1]})</p>`;
+        });
+      }
+
+      // Call locateUser function on page load
+      window.onload = locateUser;
+    </script>
+  </body>
+</html>
