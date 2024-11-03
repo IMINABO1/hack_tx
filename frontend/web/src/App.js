@@ -1,6 +1,7 @@
 import React from 'react';
-import RecyclingMessage from './RecyclingMessage'; // Adjust the path if necessary
-import './App.css'; // Make sure to import the CSS file
+import RecyclingMessage from './RecyclingMessage';
+import Developer from './Developer';
+import './App.css';
 
 const catchphrases = [
   "Turn Trash into Treasure!",
@@ -15,20 +16,54 @@ const catchphrases = [
   "Recycling: The Power of Your Choice!",
 ];
 
+// Function to get a random catchphrase
+const getRandomCatchphrase = () => {
+  const randomIndex = Math.floor(Math.random() * catchphrases.length);
+  return catchphrases[randomIndex];
+};
+
 const App = () => {
-  // Function to get a random catchphrase
-  const getRandomCatchphrase = () => {
-    const randomIndex = Math.floor(Math.random() * catchphrases.length);
-    return catchphrases[randomIndex];
-  };
+  const developers = [
+    {
+      name: 'Alice Smith',
+      role: 'Frontend Developer',
+      image: 'path/to/alice.jpg' // Replace with actual image path
+    },
+    {
+      name: 'Bob Johnson',
+      role: 'Backend Developer',
+      image: 'path/to/bob.jpg' // Replace with actual image path
+    },
+    {
+      name: 'Charlie Brown',
+      role: 'Fullstack Developer',
+      image: 'path/to/charlie.jpg' // Replace with actual image path
+    }
+  ];
 
   return (
     <div className="App">
       {/* Display a random catchphrase */}
       <h2 className="catchphrase">{getRandomCatchphrase()}</h2>
-      <a href="/street/" className="action-button">Start Recycling!</a> {/* Changed to Link */}
+      
+      {/* Start Recycling Button */}
+      <a href="/street/" className="action-button">Start Recycling!</a>
+
+      {/* Hello, Recycler! Title */}
       <h1 className="title">Hello, Recycler!</h1>
+
+      {/* Recycling Message Component */}
       <RecyclingMessage />
+
+      {/* Developer Section */}
+      <section className="developer-section">
+        <h2>Meet Our Developers</h2>
+        <div className="developer-cards">
+          {developers.map((dev, index) => (
+            <Developer key={index} name={dev.name} role={dev.role} image={dev.image} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
