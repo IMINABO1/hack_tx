@@ -2,12 +2,26 @@ from flask import Flask, request, jsonify, Response, render_template
 import tensorflow as tf
 import numpy as np
 import cv2
+import io
+import tempfile
+
+import requests as req
 
 app = Flask(__name__, template_folder='./templates')
 
 # Load your Keras model
-model_path = 'models/trained_model/trash_classifier.keras'  # Ensure this path is correct
-model = tf.keras.models.load_model(model_path)
+model_path = "https://drive.usercontent.google.com/download?id=1HiIPrQkurYVjTwSOxNb_XROcP_8kP4Jv&export=download&authuser=0&confirm=t&uuid=e2469ca0-af5b-4d1a-9d97-40c0fa08f320&at=AENtkXYuxClvLhAEN_yeuZlUtu6_:1730641018513"
+
+# Read the model as bytes
+model_bytes = req.get(model_path, timeout=300).content
+
+# Write bytes to a temporary file and load it
+with tempfile.NamedTemporaryFile(suffix=".keras") as tmp:
+    tmp.write(model_bytes)
+    tmp.flush()
+    model = tf.keras.models.load_model(tmp.name)
+
+# model = tf.keras.models.load_model(model_path)
 
 # Define the class labels
 class_labels = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']
