@@ -1,65 +1,93 @@
-.App {
+/* Import the "Press Start 2P" font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* General body styles */
+body {
+  background-color: #282c34;
+  background-image: url("https://raw.githubusercontent.com/IMINABO1/hack_tx/refs/heads/main/frontend/web/public/arcade_green.jpeg");
+  color: #fff;
+  font-family: 'Press Start 2P', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-blend-mode: soft-light;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  margin-bottom: 0.5em; /* Adjust margin for better alignment */
+}
+
+/* Global styles */
+* {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+  width: 60vw;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title {
+  color: rgb(255, 2, 255);
+  font-size: 2vw;
+  padding-top: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Wrapper to stack the animated lines vertically */
+.recycling-message {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 20px; /* Space between each animated line */
 }
 
-.App-link {
-  color: #61dafb;
+/* Glowing text styling */
+.glow-text {
+  font-size: 1.5vw; /* Adjusted for readability with the new font */
+  color: #FFF;
+  animation: glow 1s infinite alternate;
+  line-height: 2.5em;
+}
+/* Add this to your existing CSS file */
+
+/* Catchphrase styling */
+.catchphrase {
+  font-size: 2.5vw; /* Adjust font size for the catchphrase */
+  color: #00ff00; /* Green color for the catchphrase */
+  padding-bottom: 10px; /* Space below the catchphrase */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Button styling */
+.action-button {
+  margin: 10px 0; /* Space around the button */
+  padding: 10px 20px; /* Button padding */
+  font-size: 2vw; /* Font size of button text */
+  background-color: #00cc00; /* Green background */
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Change cursor on hover */
+  transition: transform 0.3s; /* Add transition effect */
+  font-family: "Press Start 2P", sans-serif; /* Use the Press Start 2P font */
+}
+
+/* Hover effect for the button */
+.action-button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+/* Hover effect for the button */
+.action-button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+/* Keyframes for glowing effect */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #00ff88, 0 0 10px #40ff00, 0 0 15px #59ff00, 0 0 20px #51ff00;
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
   }
 }
-
-/* src/App.css */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Play', sans-serif;
-  background-color: #000;
-  color: #ffd700; /* Gold color */
-}
-
-.App {
-  text-align: center;
-  min-height: 100vh;
-}
-
-h1, h2, .navbar-title {
-  font-family: 'Press Start 2P', cursive;
-  color: #ffd700;
-}
-
-.card:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s;
-}
-
