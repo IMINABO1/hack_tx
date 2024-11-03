@@ -12,18 +12,26 @@ body {
   min-height: 100vh;
   margin: 0;
   background-blend-mode: soft-light;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: stretch;
-  background-position: center;
+  background-position: center; /* Replace with your image URL */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  height: 100vh; /* Make sure the body takes the full height of the viewport */
+  margin: 0; /* Remove default margin */
 }
 
 *{
   text-align: center;
 }
-
+#root{
+  width: 90vh;
+}
 .title {
-  color: purple;
-  font-size: 3vw;
+  color: rgb(255, 2, 255);
+  font-size: 2vw;
 }
 
 /* Wrapper to stack the animated lines vertically */
@@ -36,9 +44,10 @@ body {
 
 /* Glowing text styling */
 .glow-text {
-  font-size: 2.5vw; /* Adjusted for readability with the new font */
-  color: #fff;
+  font-size: 1.5vw; /* Adjusted for readability with the new font */
+  color: #FFF;
   animation: glow 1s infinite alternate;
+  line-height: 2.5em;
 }
 
 /* Keyframes for glowing effect */
