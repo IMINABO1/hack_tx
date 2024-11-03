@@ -12,6 +12,9 @@ body {
   min-height: 100vh;
   margin: 0;
   background-blend-mode: soft-light;
+  background-repeat: no-repeat;
+  background-size: stretch;
+  background-position: center;
 }
 
 *{
