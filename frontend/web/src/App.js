@@ -1,18 +1,14 @@
-// src/App.js
 import React from 'react';
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import Footer from './components/Footer';
-import './App.css';
+import RecyclingMessage from './RecyclingMessage'; // Adjust the path if necessary
+import './App.css'; // Make sure to import the CSS file
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Navbar />
-      <Dashboard />
-      <Footer />
+      <h1 className="title">Hello, Recycler!</h1>
+      <RecyclingMessage />
     </div>
   );
-}
+};
 
 export default App;
