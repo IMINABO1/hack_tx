@@ -19,7 +19,7 @@
 
 ## Overview
 
-**Dispost** is a solution designed to [briefly describe the core purpose and main functionality of your project, e.g., "help users easily locate nearby trash disposal locations and recycling centers based on real-time data"]. 
+**Disposed** is a solution designed to [briefly describe the core purpose and main functionality of your project, e.g., "help users easily locate nearby trash disposal locations and recycling centers based on real-time data"]. 
 
 This project was inspired by the opening speech from the Green Community at HackTX, which emphasized the importance of sustainable waste management. We wanted to create a tool that simplifies waste disposal classification and promotes responsible waste management.
 
